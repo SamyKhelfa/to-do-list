@@ -5,10 +5,12 @@ type AddTasksProps = {
 };
 
 const AddTasks = ({ onAddTask }: AddTasksProps) => {
+  const [task, setTask] = useState("");
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onAddTask(task);
-    setTasks("");
+    setTask("");
   };
 
   return (
@@ -16,7 +18,7 @@ const AddTasks = ({ onAddTask }: AddTasksProps) => {
       <input
         name="task"
         value={task}
-        onChange={(e) => setTasks(e.target.value)}
+        onChange={(e) => setTask(e.target.value)}
       />
       <button type="submit">Add Task</button>
     </form>
