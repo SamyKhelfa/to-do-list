@@ -14,7 +14,11 @@ export const AuthForm = ({ onConnectUser }: AddUserProps) => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <input name="login" />
+      <input
+        name="login"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+      />
       <button type="submit">Login</button>
     </form>
   );

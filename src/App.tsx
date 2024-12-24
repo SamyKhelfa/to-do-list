@@ -26,7 +26,7 @@ function App() {
     return <Tasks />;
   }
 
-  return <AuthForm />;
+  return <AuthForm onConnectUser={onLogin} />;
 }
 
 export default App;
