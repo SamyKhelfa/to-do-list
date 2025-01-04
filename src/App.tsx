@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
 import { Tasks } from "./components/Tasks";
 import { AuthForm } from "./components/AuthForm";
@@ -13,22 +13,40 @@ const USERS = [
 function App() {
   const [isLogged, setIsLogged] = useState(false);
 
+  useEffect(() => {
+    const user = localStorage.getItem("user");
+
+    if (USERS.includes(user)) {
+      setIsLogged(true);
+    }
+  }, []);
+
   const onLogin = (email: string) => {
     if (USERS.includes(email)) {
-      localStorage.setItem("user", "true");
+      localStorage.setItem("user", email);
       setIsLogged(true);
     } else {
       alert("User not found");
     }
   };
 
+  const onLogout = () => {
+    localStorage.removeItem("user");
+    setIsLogged(false);
+  };
+
   if (isLogged) {
-    return <Tasks />;
+    return (
+      <div>
+        <div>
+          <button onClick={onLogout}>Logout</button>
+        </div>
+        <Tasks />
+      </div>
+    );
   }
 
   return <AuthForm onConnectUser={onLogin} />;
 }
 
 export default App;
-
-// https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage
