@@ -1,4 +1,4 @@
-import { useState } from "react";
+import {useEffect, useState } from "react";
 import AddTasks from "./AddTasks";
 import EditTasks from "./EditTasks";
 
@@ -11,6 +11,12 @@ type Task = {
 export const Tasks = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [editingTaskId, setEditingTaskId] = useState<number | null>(null);
+  useEffect (() => {
+    const tasks = JSON.parse(localStorage.getItem("tasks") || "{}");   
+    const user = localStorage.getItem("user")
+    
+
+  }, [tasks])
 
   const handleAddTask = (newTask: string) => {
     if (newTask.trim() !== "") {
@@ -37,6 +43,7 @@ export const Tasks = () => {
 
   const handleDeleteTask = (id: number) => {
     setTasks(tasks.filter((task) => task.id !== id));
+    localStorage.removeItem("task")
   };
 
   const handleEditTask = (id: number, newText: string) => {
@@ -47,6 +54,7 @@ export const Tasks = () => {
     );
     setEditingTaskId(null);
   };
+
 
   return (
     <>
@@ -67,7 +75,7 @@ export const Tasks = () => {
                   checked={task.isCompleted}
                   onChange={() => handleToggleTask(task.id)}
                 />
-                {task.text}
+                {localStorage.getItem("task")}
                 <button onClick={() => setEditingTaskId(task.id)}>Edit</button>
                 <button onClick={() => handleDeleteTask(task.id)}>
                   Delete

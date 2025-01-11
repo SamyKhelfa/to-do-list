@@ -14,7 +14,7 @@ function App() {
   const [isLogged, setIsLogged] = useState(false);
 
   useEffect(() => {
-    const user = localStorage.getItem("user");
+    const user = localStorage.getItem("user") || "";
 
     if (USERS.includes(user)) {
       setIsLogged(true);

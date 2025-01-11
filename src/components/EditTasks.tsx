@@ -20,6 +20,7 @@ const EditTasks = ({ taskValue, onSave, onCancel }: EditTasksProps) => {
         name="task"
         value={newTask}
         onChange={(e) => setNewTask(e.target.value)}
+        
       />
       <button type="submit">Save</button>
       <button type="button" onClick={onCancel}>
