@@ -11,15 +11,18 @@ type Task = {
 export const Tasks = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [editingTaskId, setEditingTaskId] = useState<number | null>(null);
-  useEffect (() => {
-    const tasks = JSON.parse(localStorage.getItem("tasks") || "{}");   
-    const user = localStorage.getItem("user")
-    
+  
+  useEffect(() => {
+    const storedTasks = JSON.parse(localStorage.getItem("tasks") || "[]");
+    setTasks(storedTasks);
+  }, [])
 
+  useEffect(() => {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
   }, [tasks])
 
   const handleAddTask = (newTask: string) => {
-    if (newTask.trim() !== "") {
+    if (newTask.trim() !== "") { 
       setTasks([
         ...tasks,
         {
@@ -43,7 +46,6 @@ export const Tasks = () => {
 
   const handleDeleteTask = (id: number) => {
     setTasks(tasks.filter((task) => task.id !== id));
-    localStorage.removeItem("task")
   };
 
   const handleEditTask = (id: number, newText: string) => {
@@ -54,6 +56,7 @@ export const Tasks = () => {
     );
     setEditingTaskId(null);
   };
+
 
 
   return (
@@ -75,7 +78,7 @@ export const Tasks = () => {
                   checked={task.isCompleted}
                   onChange={() => handleToggleTask(task.id)}
                 />
-                {localStorage.getItem("task")}
+                {task.text}
                 <button onClick={() => setEditingTaskId(task.id)}>Edit</button>
                 <button onClick={() => handleDeleteTask(task.id)}>
                   Delete
