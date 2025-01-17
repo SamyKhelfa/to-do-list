@@ -11,15 +11,32 @@ type Task = {
 export const Tasks = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [editingTaskId, setEditingTaskId] = useState<number | null>(null);
-  
-  useEffect(() => {
-    const storedTasks = JSON.parse(localStorage.getItem("tasks") || "[]");
-    setTasks(storedTasks);
-  }, [])
+  const user = localStorage.getItem("user")
 
   useEffect(() => {
-    localStorage.setItem("tasks", JSON.stringify(tasks));
-  }, [tasks])
+    if (user) {
+      try {
+        const storedTasks = JSON.parse(localStorage.getItem(`tasks_${user}`) || "[]");
+        console.log("Loading tasks:", storedTasks);
+        console.log("User:", user); 
+        setTasks(storedTasks);
+      } catch (error) {
+        console.error("Erreur lors du chargement des tâches:", error);
+        setTasks([]);
+      }
+    }
+  }, [user])
+  
+  useEffect(() => {
+    if (user) {
+      try {
+        console.log("Saving tasks:", tasks); 
+        localStorage.setItem(`tasks_${user}`, JSON.stringify(tasks));
+      } catch (error) {
+        console.error("Erreur lors de la sauvegarde des tâches:", error);
+      }
+    }
+  }, [tasks, user])
 
   const handleAddTask = (newTask: string) => {
     if (newTask.trim() !== "") { 
@@ -91,3 +108,4 @@ export const Tasks = () => {
     </>
   );
 };
+

@@ -7,7 +7,6 @@ type AddTasksProps = {
 const AddTasks = ({ onAddTask }: AddTasksProps) => {
   const [task, setTask] = useState("");
 
-
   const handleSubmit = (e: React.FormEvent) => {
 
     e.preventDefault();
