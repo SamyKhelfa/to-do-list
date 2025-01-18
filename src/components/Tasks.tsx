@@ -17,10 +17,10 @@ export const Tasks = () => {
     if (user) {
       try {
         const storedTasks = JSON.parse(localStorage.getItem(`tasks_${user}`) || "[]");
-        console.log("Loading tasks:", storedTasks);
+        console.log("Loading tasks:", storedTasks); 
         console.log("User:", user); 
         setTasks(storedTasks);
-      } catch (error) {
+      } catch (error) { 
         console.error("Erreur lors du chargement des tâches:", error);
         setTasks([]);
       }
