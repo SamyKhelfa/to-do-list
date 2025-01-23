@@ -12,12 +12,11 @@ const AddTasks = ({ onAddTask }: AddTasksProps) => {
     e.preventDefault();
     onAddTask(task);
     setTask("");
-    localStorage.setItem("tasks", JSON.stringify({
+    const storedTasks = JSON.parse(localStorage.getItem("tasks") || "[]");
 
-      user : [
-        task
-      ]
-    }))
+    const updatedTasks = [...storedTasks, task];
+    localStorage.setItem("tasks", JSON.stringify(updatedTasks));
+  
     
   };
 
@@ -35,17 +34,4 @@ const AddTasks = ({ onAddTask }: AddTasksProps) => {
 
 export default AddTasks;
 
-// const tasks = {
-//   "jean@gmail.com" : [
-//     "task1",
-//     "task2"
-//   ],
-//   "john@gmail.com": [
-//     "task1",
-//     "task2"
-//   ]
-// }
 
-// const user = localStorage.getItem("user")
-
-// tasks[user]
