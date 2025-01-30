@@ -6,6 +6,7 @@ type AddTasksProps = {
 
 const AddTasks = ({ onAddTask }: AddTasksProps) => {
   const [task, setTask] = useState("");
+  
 
   const handleSubmit = (e: React.FormEvent) => {
 
@@ -13,6 +14,8 @@ const AddTasks = ({ onAddTask }: AddTasksProps) => {
     onAddTask(task);
     setTask("");
     const storedTasks = JSON.parse(localStorage.getItem("tasks") || "[]");
+
+
 
     const updatedTasks = [...storedTasks, task];
     localStorage.setItem("tasks", JSON.stringify(updatedTasks));
