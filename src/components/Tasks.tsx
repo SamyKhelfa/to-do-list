@@ -31,7 +31,6 @@ export const Tasks = () => {
     if (user) {
       try {
         console.log("Saving tasks:", tasks); 
-        localStorage.setItem(`tasks_${user}`, JSON.stringify(tasks));
       } catch (error) {
         console.error("Erreur lors de la sauvegarde des tâches:", error);
       }
@@ -78,6 +77,8 @@ export const Tasks = () => {
 
   return (
     <>
+      <h1>Bonjour {user}</h1>
+
       <AddTasks onAddTask={handleAddTask} />
       <ul>
         {tasks.map((task) => (
